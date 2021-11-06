@@ -55,8 +55,7 @@ def branch(length, depth, angle, joints, shrink_mitigator):
         # Length of segments on branch between child branches
         segment = length / joints
 
-        # Each branch has 3 points along its line from which other branches
-        # grow
+        # Start i at 1 to use in shrinking factor for child branches
         for i in range(1, joints + 1):
 
             # Pairs of recursive branches shrink more further from base
@@ -64,8 +63,8 @@ def branch(length, depth, angle, joints, shrink_mitigator):
             shrink_factor = 1 + (i / 5)
             shrunk_segment = shrink_mitigator * segment / shrink_factor
 
-            # Main part of branch
-            turtle.forward(segment * i)
+            # Draw main branch up to next joint
+            turtle.forward(segment)
 
             # Left recursive branch
             turtle.left(angle)
@@ -75,9 +74,11 @@ def branch(length, depth, angle, joints, shrink_mitigator):
             turtle.right(2 * angle)
             branch(shrunk_segment, depth - 1, angle, joints, shrink_mitigator)
 
-            # Return to starting position
+            # Face forward again
             turtle.left(angle)
-            turtle.backward(segment * i)
+
+        # Return to base of main branch
+        turtle.backward(length)
 
 
 if __name__ == "__main__":

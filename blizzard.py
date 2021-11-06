@@ -68,6 +68,9 @@ def main():
     turtle.colormode(255)
     turtle.bgcolor(160, 140, 255)
 
+    # Set fast pen speed
+    turtle.speed(10)
+
     # Draw triangles, returning to center after each
     draw_triangle_flake()
     draw_branching_flake()
